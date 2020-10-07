@@ -31,4 +31,8 @@ public class UserService {
     public User queryUserByUsernamePassword(User loginUser) {
         return userMapper.queryUserByUsernamePassword(loginUser);
     }
+
+    public User queryUserByUsernamePassword1(User loginUser) {
+        return userMapper.queryUserByUsernamePassword(loginUser);
+    }
 }
