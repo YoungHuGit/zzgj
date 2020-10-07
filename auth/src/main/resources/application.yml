@@ -1,0 +1,16 @@
+spring:
+  profiles:
+    active: dev
+  application: auth
+server:
+  port: 8081
+  servlet:
+    context-path: "/auth"
+pagehelper:
+  helper-dialect: mysql
+  params: count=countSql
+  reasonable: true
+  support-methods-arguments: true
+
+logging:
+  config: classpath:log4j2.xml

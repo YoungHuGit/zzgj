@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: dev
+  application: work
+server:
+  port: 8890
+  servlet:
+    context-path: "/work"

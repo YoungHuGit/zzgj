@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newerabc.auth.user.mapper.UserMapper">
+
+    <resultMap id="baseResultMap" type="com.newerabc.auth.user.entity.User">
+        <result property="userNo" column="user_no"/>
+        <result property="userName" column="username"/>
+        <result property="nickName" column="nickname"/>
+        <result property="status" column="status"/>
+        <result property="password" column="password"/>
+        <result property="createTime" column="createtime"/>
+        <result property="age" column="age"/>
+        <collection property="dept" ofType="com.newerabc.auth.dept.entity.Dept">
+            <result property="name" column="deptName" />
+            <result property="deptNo" column="deptNo"/>
+        </collection>
+        <collection property="roles" ofType="com.newerabc.auth.role.entity.Role">
+            <result property="id" column="roleId"/>
+            <result property="name" column="roleName"/>
+        </collection>
+    </resultMap>
+
+    <select id="queryList" resultMap="baseResultMap">
+        select t1.*,t2.name as deptName from td_user t1 left join td_dept t2 on t1.deptno = t2.deptno
+    </select>
+
+    <select id="queryUserByUsernamePassword" resultMap="baseResultMap">
+        select t1.*,t3.id as roleId,t3.name as roleName,t4.deptno as deptNo,t4.name as deptName from td_user t1
+        left join td_user_role_rel t2 on t1.user_no = t2.userId
+        left join td_role t3 on t2.roleId = t3.id
+        left join td_dept t4 on t1.deptno = t4.deptno
+        where username = #{userName} and password = #{password}
+    </select>
+
+</mapper>

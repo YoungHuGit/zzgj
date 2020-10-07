@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newerabc.auth.menu.mapper.MenuMapper">
+
+    <resultMap id="baseResultMap" type="com.newerabc.auth.menu.entity.Menu">
+        <result property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="url" column="url"/>
+        <result property="parentId" column="parentid"/>
+        <result property="typeId" column="typeid"/>
+        <collection property="roles" ofType="com.newerabc.auth.role.entity.Role">
+            <result property="id" column="roleId"/>
+            <result property="name" column="roleName"/>
+        </collection>
+    </resultMap>
+
+    <select id="queryMenusOwnerRoles" resultMap="baseResultMap">
+        select t1.*,t3.id as roleId ,t3.name as roleName from td_menu t1 left join td_role_menu_rel t2 on t1.id  = t2.menuId
+        left join td_role t3 on t2.roleId = t3.id
+    </select>
+
+
+</mapper>
